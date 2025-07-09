@@ -1,0 +1,41 @@
+<div class="flex flex-col items-center min-h-screen bg-white">
+  <div class="w-[90%] max-w-4xl pt-12 space-y-4">
+    <h1 class="text-[36px] font-bold text-center">Vector Movie Search</h1>
+
+    <app-movie-search
+      [searchValue]="searchValue"
+      (searchValueChange)="searchValue = $event"
+      (submit)="handleSearch($event)"
+    />
+    <div class="flex flex-wrap gap-2 justify-center text-sm">
+      @for (search of mockMovieSearches; track search) {
+        <app-badge [text]="search" (badgeClicked)="searchValue = $event" />
+      }
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div class="w-[90%] h-full max-w-6xl">
+    @if (isLoading) {
+      <h1 class="text-lg font-medium text-center mt-10">Loading...</h1>
+    } @else {
+      @if (movies.length > 0) {
+        <h2 class="text-2xl font-bold py-5">Matching Movies</h2>
+        <swiper-container
+          slides-per-view="4.5"
+          navigation="false"
+          pagination="false"
+          space-between="30"
+          loop="false"
+          class="w-full"
+        >
+          @for (movie of movies; track movie.id) {
+            <swiper-slide>
+              <app-movie-card [movie]="movie" />
+            </swiper-slide>
+          }
+        </swiper-container>
+      }
+    }
+  </div>
+</div>

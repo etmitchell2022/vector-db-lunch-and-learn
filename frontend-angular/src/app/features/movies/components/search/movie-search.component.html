@@ -1,0 +1,18 @@
+<div
+  class="relative h-40 w-full rounded-xl border border-gray-200 bg-[#fafafa] p-4"
+>
+  <textarea
+    placeholder="Describe the movie you want to watch..."
+    class="h-full w-full resize-none bg-transparent text-black/80 placeholder:text-black/60 outline-none focus:outline-none focus:ring-0 focus:border-none"
+    rows="4"
+    [value]="searchValue"
+    (input)="onInputChange($event)"
+  ></textarea>
+  <button
+    class="absolute bottom-4 right-4 h-10 w-10 rounded-full bg-black text-white flex items-center justify-center hover:bg-gray-800 transition"
+    (click)="onSubmit()"
+    [disabled]="!searchValue"
+  >
+    <span class="material-icons text-base">arrow_forward</span>
+  </button>
+</div>

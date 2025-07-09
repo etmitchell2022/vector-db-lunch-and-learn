@@ -1,0 +1,31 @@
+<div class="flex min-h-screen bg-white">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-50 border-r p-4 flex flex-col justify-between">
+    <div>
+      <h4 class="text-md">Vector DB LnL</h4>
+      <nav class="flex flex-col gap-2">
+        <a
+          routerLink="/movies"
+          routerLinkActive="bg-gray-100"
+          class="flex items-center py-2 rounded-md hover:bg-gray-100 cursor-pointer"
+        >
+          <span class="material-icons text-[18px] mr-2">movie</span>
+          Movies
+        </a>
+        <a
+          routerLink="/nfl-players"
+          routerLinkActive="bg-gray-100"
+          class="flex items-center w-full py-2 rounded-md hover:bg-gray-100 cursor-pointer"
+        >
+          <span class="material-icons text-[18px] mr-2">sports_football</span>
+          NFL Players
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1">
+    <router-outlet></router-outlet>
+  </main>
+</div>
