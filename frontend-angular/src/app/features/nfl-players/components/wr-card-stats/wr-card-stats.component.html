@@ -1,0 +1,35 @@
+<div class="flex justify-between mt-4 text-center">
+      <div>
+        <p class="text-2xl font-bold text-black">
+          {{ player.stats?.receivingYards | number }}
+        </p>
+        <p class="text-xs text-gray-500">Receiving Yds</p>
+      </div>
+      <div>
+        <p class="text-2xl font-bold text-black">
+          {{ player.stats?.receivingTouchdowns }}
+        </p>
+        <p class="text-xs text-gray-500">TDs</p>
+      </div>
+      <div>
+        <p class="text-2xl font-bold text-black">
+          {{ player.stats?.fumbles }}
+        </p>
+        <p class="text-xs text-gray-500">Fumbles</p>
+      </div>
+    </div>
+
+    <div class="flex justify-between mt-3 text-sm text-gray-600">
+      <p>
+        YPC:
+        <span class="font-semibold text-black">{{
+          player.stats?.yardsPerReception | number: '1.1-1'
+        }}</span>
+      </p>
+      <p>
+        Big Plays:
+        <span class="font-semibold text-black">{{
+          player.stats?.receivingBigPlays
+        }}</span>
+      </p>
+    </div>

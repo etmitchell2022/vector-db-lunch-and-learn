@@ -5,6 +5,7 @@ import { DecimalPipe } from '@angular/common';
 import { calculateYearsInLeague } from '../../../../utils/calculateYearsInLeague';
 import { QuarterbackCardStatsComponent } from '../quarterback-card-stats/quarterback-card-stats.component';
 import { RunningBackCardStatsComponent } from '../runningback-card-stats/runningback-card-stats.component';
+import { WRCardStatsComponent } from '../wr-card-stats/wr-card-stats.component';
 
 @Component({
   selector: 'app-player-card',
@@ -14,6 +15,7 @@ import { RunningBackCardStatsComponent } from '../runningback-card-stats/running
     DecimalPipe,
     QuarterbackCardStatsComponent,
     RunningBackCardStatsComponent,
+    WRCardStatsComponent,
   ],
   animations: [
     trigger('slideInOut', [
