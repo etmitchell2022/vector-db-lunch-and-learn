@@ -30,9 +30,9 @@
           loop="false"
           class="w-full mt-3 p-2"
         >
-          @for (player of players(); track player.id) {
+          @for (player of players(); track player.id; let index = $index) {
             <swiper-slide>
-              <app-player-card [player]="player" />
+              <app-player-card [player]="player" [index]="index" />
             </swiper-slide>
           }
         </swiper-container>

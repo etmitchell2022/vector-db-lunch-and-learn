@@ -32,6 +32,7 @@ import { WRCardStatsComponent } from '../wr-card-stats/wr-card-stats.component';
 export class PlayerCardComponent {
   constructor() {}
   @Input() player!: NFLPlayerSearchResult;
+  @Input() index!: number;
   showVectorAnalysis = false;
 
   get similarityPercent(): string {
@@ -51,6 +52,11 @@ export class PlayerCardComponent {
     return `[${embeddingStr}, ...]`;
   }
 
+  get borderColor() {
+    if (this.index === 0) return 'border-l-green-500';
+    if (this.index > 0) return 'border-l-yellow-500';
+    return 'border-l-red-500';
+  }
   toggleVectorAnalysis() {
     this.showVectorAnalysis = !this.showVectorAnalysis;
   }
