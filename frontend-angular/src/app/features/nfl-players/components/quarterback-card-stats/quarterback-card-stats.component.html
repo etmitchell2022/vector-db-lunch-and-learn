@@ -1,0 +1,35 @@
+<div class="flex justify-between mt-4 text-center">
+  <div>
+    <p class="text-2xl font-bold text-black">
+      {{ player.stats?.passingYards | number }}
+    </p>
+    <p class="text-xs text-gray-500">Pass Yds</p>
+  </div>
+  <div>
+    <p class="text-2xl font-bold text-black">
+      {{ player.stats?.passingTouchdowns }}
+    </p>
+    <p class="text-xs text-gray-500">TDs</p>
+  </div>
+  <div>
+    <p class="text-2xl font-bold text-black">
+      {{ player.stats?.QBRating | number: '1.1-1' }}
+    </p>
+    <p class="text-xs text-gray-500">Rating</p>
+  </div>
+</div>
+
+<div class="flex justify-between mt-3 text-sm text-gray-600">
+  <p>
+    YPPA:
+    <span class="font-semibold text-black">{{
+      player.stats?.yardsPerPassAttempt | number: '1.1-1'
+    }}</span>
+  </p>
+  <p>
+    CP:
+    <span class="font-semibold text-black"
+      >{{ player.stats?.completionPct | number: '1.1-1' }}%</span
+    >
+  </p>
+</div>

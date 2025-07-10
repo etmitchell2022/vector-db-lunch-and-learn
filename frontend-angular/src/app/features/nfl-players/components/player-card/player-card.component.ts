@@ -1,15 +1,20 @@
-import { Component, Input } from "@angular/core";
-import { NFLPlayerSearchResult } from "../../../../api";
+import { Component, Input } from '@angular/core';
+import { NFLPlayerSearchResult } from '../../../../api';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { DecimalPipe } from "@angular/common";
-import { calculateYearsInLeague } from "../../../../utils/calculateYearsInLeague";
-
+import { DecimalPipe } from '@angular/common';
+import { calculateYearsInLeague } from '../../../../utils/calculateYearsInLeague';
+import { QuarterbackCardStatsComponent } from '../quarterback-card-stats/quarterback-card-stats.component';
+import { RunningBackCardStatsComponent } from '../runningback-card-stats/runningback-card-stats.component';
 
 @Component({
-  selector: "app-player-card",
-  templateUrl: "./player-card.component.html",
+  selector: 'app-player-card',
+  templateUrl: './player-card.component.html',
   standalone: true,
-  imports: [DecimalPipe],
+  imports: [
+    DecimalPipe,
+    QuarterbackCardStatsComponent,
+    RunningBackCardStatsComponent,
+  ],
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
@@ -23,7 +28,7 @@ import { calculateYearsInLeague } from "../../../../utils/calculateYearsInLeague
   ],
 })
 export class PlayerCardComponent {
-  constructor() { }
+  constructor() {}
   @Input() player!: NFLPlayerSearchResult;
   showVectorAnalysis = false;
 
@@ -37,10 +42,10 @@ export class PlayerCardComponent {
   }
 
   get shortenedEmbeddings(): string {
-    if (!this.player?.embedding) return "";
+    if (!this.player?.embedding) return '';
     const embeddings = this.player?.embedding;
     const roundedEmbeddings = embeddings.map((emb: number) => emb.toFixed(4));
-    const embeddingStr = roundedEmbeddings.slice(0, 15).join(", ") ?? "";
+    const embeddingStr = roundedEmbeddings.slice(0, 15).join(', ') ?? '';
     return `[${embeddingStr}, ...]`;
   }
 

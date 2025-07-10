@@ -20,31 +20,47 @@
     </div>
   </div>
 
-  <div class="flex justify-between mt-4 text-center">
-    <div>
-      <p class="text-2xl font-bold text-black">
-        {{ player.stats?.passingYards | number }}
-      </p>
-      <p class="text-xs text-gray-500">Pass Yds</p>
+  @if (player.position === 'QB') {
+    <app-quarterback-card-stats [player]="player"></app-quarterback-card-stats>
+  } @else if (player.position === 'RB') {
+    <app-runningback-card-stats [player]="player"></app-runningback-card-stats>
+  } @else if (player.position === 'WR') {
+    <div class="flex justify-between mt-4 text-center">
+      <div>
+        <p class="text-2xl font-bold text-black">
+          {{ player.stats?.receivingYards | number }}
+        </p>
+        <p class="text-xs text-gray-500">Receiving Yds</p>
+      </div>
+      <div>
+        <p class="text-2xl font-bold text-black">
+          {{ player.stats?.receivingTouchdowns }}
+        </p>
+        <p class="text-xs text-gray-500">TDs</p>
+      </div>
+      <div>
+        <p class="text-2xl font-bold text-black">
+          {{ player.stats?.fumbles }}
+        </p>
+        <p class="text-xs text-gray-500">Fumbles</p>
+      </div>
     </div>
-    <div>
-      <p class="text-2xl font-bold text-black">
-        {{ player.stats?.passingTouchdowns }}
-      </p>
-      <p class="text-xs text-gray-500">TDs</p>
-    </div>
-    <div>
-      <p class="text-2xl font-bold text-black">
-        {{ player.stats?.QBRating | number: '1.1-1' }}
-      </p>
-      <p class="text-xs text-gray-500">Rating</p>
-    </div>
-  </div>
 
-  <div class="flex justify-between mt-3 text-sm text-gray-600">
-    <p>EPA: <span class="font-semibold text-black">0.21</span></p>
-    <p>CPOE: <span class="font-semibold text-black">2.4%</span></p>
-  </div>
+    <div class="flex justify-between mt-3 text-sm text-gray-600">
+      <p>
+        YPC:
+        <span class="font-semibold text-black">{{
+          player.stats?.yardsPerReception | number: '1.1-1'
+        }}</span>
+      </p>
+      <p>
+        Big Plays:
+        <span class="font-semibold text-black">{{
+          player.stats?.receivingBigPlays
+        }}</span>
+      </p>
+    </div>
+  }
 
   <div class="flex items-center justify-center mt-5">
     <button
