@@ -47,12 +47,18 @@ export class PlayerDetailsPage {
         title: {
           display: true,
           text: 'X Coordinate'
+        },
+        grid: {
+          display: false
         }
       },
       y: {
         title: {
           display: true,
           text: 'Y Coordinate'
+        },
+        grid: {
+          display: false
         }
       }
     }
