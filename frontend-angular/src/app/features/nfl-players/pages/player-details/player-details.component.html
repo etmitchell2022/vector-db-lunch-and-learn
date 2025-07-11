@@ -74,18 +74,21 @@
           </div>
         } @else if (similarPlayers.length > 0) {
           <div class="bg-white rounded-lg shadow-sm border p-6">
-            <div style="height: 400px;">
-              <canvas 
+            <div style="height: 400px">
+              <canvas
                 baseChart
                 [type]="scatterChartType"
                 [data]="scatterChartData"
-                [options]="scatterChartOptions">
+                [options]="scatterChartOptions"
+              >
               </canvas>
             </div>
           </div>
         } @else {
           <div class="text-center py-8">
-            <p class="text-gray-600">No similarity data available for this player.</p>
+            <p class="text-gray-600">
+              No similarity data available for this player.
+            </p>
           </div>
         }
       </div>

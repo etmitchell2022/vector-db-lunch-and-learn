@@ -45,6 +45,19 @@ export class PlayerDetailsPage {
         display: false,
         position: 'top',
       },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const point = context.raw as {
+              x: number;
+              y: number;
+              name?: string;
+            };
+            console.log('context', context);
+            return `${point.name}`;
+          },
+        },
+      },
     },
     scales: {
       x: {
@@ -131,6 +144,7 @@ export class PlayerDetailsPage {
 
     // Add current player as a special dataset
     if (currentPlayer && currentPlayer.coordinates) {
+      console.log('current player coordinates', currentPlayer);
       datasets.push({
         label: 'Current Player',
         data: [
@@ -139,8 +153,8 @@ export class PlayerDetailsPage {
             y: currentPlayer.coordinates.y || 0,
           },
         ],
-        backgroundColor: 'rgba(239, 68, 68, 0.8)',
-        borderColor: 'rgba(239, 68, 68, 1)',
+        backgroundColor: '#ba0c2f',
+        borderColor: '#ba0c2f',
         pointRadius: 8,
         pointHoverRadius: 10,
       });
@@ -149,7 +163,6 @@ export class PlayerDetailsPage {
     // Add similar players
     if (otherPlayers.length > 0) {
       datasets.push({
-        label: 'Similar Players',
         data: otherPlayers
           .filter(
             (p) =>
@@ -160,9 +173,10 @@ export class PlayerDetailsPage {
           .map((p) => ({
             x: p.coordinates!.x!,
             y: p.coordinates!.y!,
+            name: p.name,
           })),
-        backgroundColor: 'rgba(59, 130, 246, 0.6)',
-        borderColor: 'rgba(59, 130, 246, 1)',
+        backgroundColor: '#5646e3',
+        borderColor: '#5646e3',
         pointRadius: 6,
         pointHoverRadius: 8,
       });
