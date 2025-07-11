@@ -1,3 +1,96 @@
 <div class="flex flex-col items-center min-h-screen bg-white">
-  <div class="w-full flex flex-col p-12 space-y-4">{{ playerId }}</div>
+  <div class="w-full flex flex-col p-12 space-y-4">
+    @if (isLoading) {
+      <h1 class="text-lg font-medium text-center mt-10">Loading...</h1>
+    } @else if (player) {
+      <div class="flex flex-row">
+        <!-- Player image -->
+        <div>
+          <img
+            src="{{ player.headshot }}"
+            alt=""
+            class="w-12 h-12 rounded-full object-cover"
+          />
+        </div>
+        <!-- Player bio -->
+        <div class="flex flex-col">
+          <h1 class="text-3xl text-gray-900 font-bold">{{ player.name }}</h1>
+          <p class="text-sm text-gray-600">
+            {{ player.position }} · {{ player.abbreviation }} ·
+            {{ player.age }} yrs · {{ yearsInLeague }} years
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-4 mt-3 gap-2">
+        <div
+          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        >
+          <h2 class="text-xl font-bold text-black">
+            {{ player.stats?.passingYards | number }}
+          </h2>
+          <p class="text-sm text-gray-500">Passing Yards</p>
+        </div>
+        <div
+          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        >
+          <h2 class="text-xl font-bold text-black">
+            {{ player.stats?.passingTouchdowns }}
+          </h2>
+          <p class="text-sm text-gray-500">Touchdowns</p>
+        </div>
+        <div
+          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        >
+          <h2 class="text-xl font-bold text-black">
+            {{ player.stats?.passingBigPlays }}
+          </h2>
+          <p class="text-sm text-gray-500">Big Plays</p>
+        </div>
+        <div
+          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        >
+          <h2 class="text-xl font-bold text-black">
+            {{ player.stats?.interceptions }}
+          </h2>
+          <p class="text-sm text-gray-500">Interceptions</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-4 mt-3 gap-2">
+        <div
+          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        >
+          <h2 class="text-xl font-bold text-black">
+            {{ player.stats?.fumbles }}
+          </h2>
+          <p class="text-sm text-gray-500">Fumbles</p>
+        </div>
+        <div
+          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        >
+          <h2 class="text-xl font-bold text-black">
+            {{ player.stats?.passingFirstDowns }}
+          </h2>
+          <p class="text-sm text-gray-500">First Downs</p>
+        </div>
+        <div
+          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        >
+          <h2 class="text-xl font-bold text-black">
+            {{ player.stats?.completionPct | number: '1.1-1' }}%
+          </h2>
+          <p class="text-sm text-gray-500">Completion Pct.</p>
+        </div>
+        <div
+          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        >
+          <h2 class="text-xl font-bold text-black">
+            {{ player.stats?.gamesPlayed }}
+          </h2>
+          <p class="text-sm text-gray-500">Games Played</p>
+        </div>
+      </div>
+    }
+  </div>
 </div>
