@@ -6,6 +6,7 @@ import { calculateYearsInLeague } from '../../../../utils/calculateYearsInLeague
 import { QuarterbackCardStatsComponent } from '../quarterback-card-stats/quarterback-card-stats.component';
 import { RunningBackCardStatsComponent } from '../runningback-card-stats/runningback-card-stats.component';
 import { WRCardStatsComponent } from '../wr-card-stats/wr-card-stats.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-player-card',
@@ -16,6 +17,7 @@ import { WRCardStatsComponent } from '../wr-card-stats/wr-card-stats.component';
     QuarterbackCardStatsComponent,
     RunningBackCardStatsComponent,
     WRCardStatsComponent,
+    RouterModule,
   ],
   animations: [
     trigger('slideInOut', [
