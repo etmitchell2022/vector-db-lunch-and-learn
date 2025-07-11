@@ -1,0 +1,14 @@
+<div
+  class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+>
+  <h2 class="text-xl font-bold text-black">
+    @if (useThousandsSeparator) {
+      {{ value | number }}
+    } @else if (isPercentage) {
+      {{ value | number: decimalPlaces }}%
+    } @else {
+      {{ formattedValue }}
+    }
+  </h2>
+  <p class="text-sm text-gray-500">{{ label }}</p>
+</div>

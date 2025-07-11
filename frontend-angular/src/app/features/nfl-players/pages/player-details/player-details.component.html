@@ -23,73 +23,46 @@
       </div>
 
       <div class="grid grid-cols-4 mt-3 gap-2">
-        <div
-          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        <app-stat-card
+          [value]="player.stats?.passingYards"
+          label="Passing Yards"
+          [useThousandsSeparator]="true"
         >
-          <h2 class="text-xl font-bold text-black">
-            {{ player.stats?.passingYards | number }}
-          </h2>
-          <p class="text-sm text-gray-500">Passing Yards</p>
-        </div>
-        <div
-          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        </app-stat-card>
+        <app-stat-card
+          [value]="player.stats?.passingTouchdowns"
+          label="Touchdowns"
         >
-          <h2 class="text-xl font-bold text-black">
-            {{ player.stats?.passingTouchdowns }}
-          </h2>
-          <p class="text-sm text-gray-500">Touchdowns</p>
-        </div>
-        <div
-          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        </app-stat-card>
+        <app-stat-card
+          [value]="player.stats?.passingBigPlays"
+          label="Big Plays"
         >
-          <h2 class="text-xl font-bold text-black">
-            {{ player.stats?.passingBigPlays }}
-          </h2>
-          <p class="text-sm text-gray-500">Big Plays</p>
-        </div>
-        <div
-          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        </app-stat-card>
+        <app-stat-card
+          [value]="player.stats?.interceptions"
+          label="Interceptions"
         >
-          <h2 class="text-xl font-bold text-black">
-            {{ player.stats?.interceptions }}
-          </h2>
-          <p class="text-sm text-gray-500">Interceptions</p>
-        </div>
+        </app-stat-card>
       </div>
 
       <div class="grid grid-cols-4 mt-3 gap-2">
-        <div
-          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        <app-stat-card [value]="player.stats?.fumbles" label="Fumbles">
+        </app-stat-card>
+        <app-stat-card
+          [value]="player.stats?.passingFirstDowns"
+          label="First Downs"
         >
-          <h2 class="text-xl font-bold text-black">
-            {{ player.stats?.fumbles }}
-          </h2>
-          <p class="text-sm text-gray-500">Fumbles</p>
-        </div>
-        <div
-          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
+        </app-stat-card>
+        <app-stat-card
+          [value]="player.stats?.completionPct"
+          label="Completion Pct."
+          [isPercentage]="true"
+          decimalPlaces="1.1-1"
         >
-          <h2 class="text-xl font-bold text-black">
-            {{ player.stats?.passingFirstDowns }}
-          </h2>
-          <p class="text-sm text-gray-500">First Downs</p>
-        </div>
-        <div
-          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
-        >
-          <h2 class="text-xl font-bold text-black">
-            {{ player.stats?.completionPct | number: '1.1-1' }}%
-          </h2>
-          <p class="text-sm text-gray-500">Completion Pct.</p>
-        </div>
-        <div
-          class="flex flex-col items-center justify-center bg-gray-100 rounded-md p-6"
-        >
-          <h2 class="text-xl font-bold text-black">
-            {{ player.stats?.gamesPlayed }}
-          </h2>
-          <p class="text-sm text-gray-500">Games Played</p>
-        </div>
+        </app-stat-card>
+        <app-stat-card [value]="player.stats?.gamesPlayed" label="Games Played">
+        </app-stat-card>
       </div>
     }
   </div>

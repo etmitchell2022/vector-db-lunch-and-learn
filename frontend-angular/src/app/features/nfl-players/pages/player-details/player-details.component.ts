@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { NFLPlayerSearchResult, NflPlayersService } from '../../../../api';
 import { calculateYearsInLeague } from '../../../../utils/calculateYearsInLeague';
 import { DecimalPipe } from '@angular/common';
+import { StatCardComponent } from '../../../../shared/components/stat-card/stat-card.component';
 
 @Component({
   selector: 'app-player-details',
   templateUrl: './player-details.component.html',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, StatCardComponent],
   standalone: true,
 })
 export class PlayerDetailsPage {
