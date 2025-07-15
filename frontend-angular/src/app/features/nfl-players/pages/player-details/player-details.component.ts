@@ -28,7 +28,6 @@ export class PlayerDetailsPage {
   similarPlayers: NFLPlayerVectorVisualization[] = [];
   isLoadingChart = false;
 
-  // Chart configuration
   public scatterChartType = 'scatter' as const;
   public scatterChartData: ChartData<'scatter'> = {
     datasets: [],
@@ -53,7 +52,6 @@ export class PlayerDetailsPage {
               y: number;
               name?: string;
             };
-            console.log('context', context);
             return `${point.name}`;
           },
         },
@@ -63,7 +61,6 @@ export class PlayerDetailsPage {
       x: {
         title: {
           display: false,
-          text: 'X Coordinate',
         },
         grid: {
           display: false,
@@ -72,7 +69,6 @@ export class PlayerDetailsPage {
       y: {
         title: {
           display: false,
-          text: 'Y Coordinate',
         },
         grid: {
           display: false,
@@ -97,7 +93,6 @@ export class PlayerDetailsPage {
         this.isLoading = false;
         console.log('player', player);
 
-        // Fetch vector visualization data
         this.fetchVectorVisualization();
       },
       error: (err) => {
@@ -119,7 +114,6 @@ export class PlayerDetailsPage {
           this.isLoadingChart = false;
           console.log('similar players', similarPlayers);
 
-          // Update chart data
           this.updateChartData();
         },
         error: (err) => {
@@ -132,7 +126,6 @@ export class PlayerDetailsPage {
   updateChartData() {
     if (!this.similarPlayers || this.similarPlayers.length === 0) return;
 
-    // Find the current player in the similar players data
     const currentPlayer = this.similarPlayers.find(
       (p) => p.id === this.playerId
     );
@@ -142,7 +135,6 @@ export class PlayerDetailsPage {
 
     const datasets = [];
 
-    // Add current player as a special dataset
     if (currentPlayer && currentPlayer.coordinates) {
       console.log('current player coordinates', currentPlayer);
       datasets.push({
@@ -160,7 +152,6 @@ export class PlayerDetailsPage {
       });
     }
 
-    // Add similar players
     if (otherPlayers.length > 0) {
       datasets.push({
         data: otherPlayers
