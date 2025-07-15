@@ -20,6 +20,10 @@ import { Observable }                                        from 'rxjs';
 import { Movie } from '../model/movie';
 // @ts-ignore
 import { MovieSearchArgs } from '../model/movieSearchArgs';
+// @ts-ignore
+import { MovieSearchResult } from '../model/movieSearchResult';
+// @ts-ignore
+import { MovieVectorVisualization } from '../model/movieVectorVisualization';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -144,9 +148,9 @@ export class MoviesService extends BaseService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiV1MoviesMovieMovieIdRecommendationsGet(movieId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<Movie>>;
-    public apiV1MoviesMovieMovieIdRecommendationsGet(movieId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<Movie>>>;
-    public apiV1MoviesMovieMovieIdRecommendationsGet(movieId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<Movie>>>;
+    public apiV1MoviesMovieMovieIdRecommendationsGet(movieId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<MovieSearchResult>>;
+    public apiV1MoviesMovieMovieIdRecommendationsGet(movieId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<MovieSearchResult>>>;
+    public apiV1MoviesMovieMovieIdRecommendationsGet(movieId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<MovieSearchResult>>>;
     public apiV1MoviesMovieMovieIdRecommendationsGet(movieId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (movieId === null || movieId === undefined) {
             throw new Error('Required parameter movieId was null or undefined when calling apiV1MoviesMovieMovieIdRecommendationsGet.');
@@ -179,7 +183,7 @@ export class MoviesService extends BaseService {
 
         let localVarPath = `/api/v1/movies/movie/${this.configuration.encodeParam({name: "movieId", value: movieId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/recommendations`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<Array<Movie>>('get', `${basePath}${localVarPath}`,
+        return this.httpClient.request<Array<MovieSearchResult>>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -197,9 +201,9 @@ export class MoviesService extends BaseService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiV1MoviesSearchPost(movieSearchArgs: MovieSearchArgs, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<Movie>>;
-    public apiV1MoviesSearchPost(movieSearchArgs: MovieSearchArgs, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<Movie>>>;
-    public apiV1MoviesSearchPost(movieSearchArgs: MovieSearchArgs, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<Movie>>>;
+    public apiV1MoviesSearchPost(movieSearchArgs: MovieSearchArgs, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<MovieSearchResult>>;
+    public apiV1MoviesSearchPost(movieSearchArgs: MovieSearchArgs, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<MovieSearchResult>>>;
+    public apiV1MoviesSearchPost(movieSearchArgs: MovieSearchArgs, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<MovieSearchResult>>>;
     public apiV1MoviesSearchPost(movieSearchArgs: MovieSearchArgs, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (movieSearchArgs === null || movieSearchArgs === undefined) {
             throw new Error('Required parameter movieSearchArgs was null or undefined when calling apiV1MoviesSearchPost.');
@@ -241,10 +245,63 @@ export class MoviesService extends BaseService {
 
         let localVarPath = `/api/v1/movies/search`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<Array<Movie>>('post', `${basePath}${localVarPath}`,
+        return this.httpClient.request<Array<MovieSearchResult>>('post', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: movieSearchArgs,
+                responseType: <any>responseType_,
+                ...(withCredentials ? { withCredentials } : {}),
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param movieId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiV1MoviesMovieMovieIdVectorVisualizationGet(movieId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<MovieVectorVisualization>>;
+    public apiV1MoviesMovieMovieIdVectorVisualizationGet(movieId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<MovieVectorVisualization>>>;
+    public apiV1MoviesMovieMovieIdVectorVisualizationGet(movieId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<MovieVectorVisualization>>>;
+    public apiV1MoviesMovieMovieIdVectorVisualizationGet(movieId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (movieId === null || movieId === undefined) {
+            throw new Error('Required parameter movieId was null or undefined when calling apiV1MoviesMovieMovieIdVectorVisualizationGet.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
+        ]);
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        const localVarHttpContext: HttpContext = options?.context ?? new HttpContext();
+
+        const localVarTransferCache: boolean = options?.transferCache ?? true;
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/v1/movies/movie/${this.configuration.encodeParam({name: "movieId", value: movieId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/vector-visualization`;
+        const { basePath, withCredentials } = this.configuration;
+        return this.httpClient.request<Array<MovieVectorVisualization>>('get', `${basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,
