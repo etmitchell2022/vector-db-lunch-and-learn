@@ -13,31 +13,64 @@ class NFLPlayersController:
         self.db_client = ChromaDBClient()
         self.embeddings = Embeddings()
 
-    def get_all_players(self):
+    def _load_nfl_data(self):
+        """Load NFL data from JSON file."""
         base_dir = os.path.dirname(__file__)
         json_path = os.path.join(base_dir, "../../data/nfl/nfl_data.json")
         with open(json_path) as f:
-            nfl_data = json.load(f)
-            return self.create_player_object(nfl_data)
+            return json.load(f)
+
+    def get_all_players(self):
+        nfl_data = self._load_nfl_data()
+        return self.create_player_object(nfl_data)
 
     def get_player_by_id(self, player_id):
-        base_dir = os.path.dirname(__file__)
-        json_path = os.path.join(base_dir, "../../data/nfl/nfl_data.json")
-        with open(json_path) as f:
-            nfl_data = json.load(f)
-            player = next(
-                (
-                    self.extract_player_data(p)
-                    for p in nfl_data
-                    if int(p["espn_id"]) == int(player_id)
-                ),
-                None,
-            )
-            return player
+        nfl_data = self._load_nfl_data()
+        player = next(
+            (
+                self.extract_player_data(p)
+                for p in nfl_data
+                if int(p["espn_id"]) == int(player_id)
+            ),
+            None,
+        )
+        return player
+
+    def _get_collection(self):
+        """Get or create the NFL players collection."""
+        return self.db_client.get_or_create_collection("nfl_players")
+
+    def _calculate_similarity_score(self, distance):
+        """Calculate similarity score from distance."""
+        return round(1 - distance, 3)
+
+    def _process_player_metadata_with_similarity(self, metadata, distance, document, embedding):
+        """Process player metadata and add similarity information."""
+        player = {
+            "id": metadata.get("id", ""),
+            "name": metadata.get("name", ""),
+            "position": metadata.get("position", ""),
+            "position_group": metadata.get("position_group", ""),
+            "age": metadata.get("age") or 0,
+            "debut_year": str(metadata.get("debut_year") or ""),
+            "headshot": metadata.get("headshot") or "",
+            "weight": float(metadata.get("weight") or 0.0),
+            "display_height": metadata.get("display_height") or "",
+            "team": metadata.get("team") or "",
+            "abbreviation": metadata.get("abbreviation") or "",
+            "embedding": embedding.tolist(),
+            "document": document,
+            "similarity": self._calculate_similarity_score(distance),
+            "raw_similarity": round(distance, 3),
+            "stats": {},
+        }
+        for key in ALL_STAT_KEYS:
+            player["stats"][key] = float(metadata.get(self.to_snake_case(key), 0.0))
+        return player
 
     def get_similar_players(self, search, top_n=5):
         embedding = self.embeddings.create_embedding(search)
-        collection = self.db_client.get_or_create_collection("nfl_players")
+        collection = self._get_collection()
 
         results = collection.query(
             query_embeddings=[embedding],
@@ -53,33 +86,13 @@ class NFLPlayersController:
             results["documents"][0],
             results["embeddings"][0],
         ):
-            player = {
-                "id": metadata.get("id", ""),
-                "name": metadata.get("name", ""),
-                "position": metadata.get("position", ""),
-                "position_group": metadata.get("position_group", ""),
-                "age": metadata.get("age") or 0,
-                "debut_year": str(metadata.get("debut_year") or ""),
-                "headshot": metadata.get("headshot") or "",
-                "weight": float(metadata.get("weight") or 0.0),
-                "display_height": metadata.get("display_height") or "",
-                "team": metadata.get("team") or "",
-                "abbreviation": metadata.get("abbreviation") or "",
-                "embedding": emb.tolist(),
-                "document": document,
-                "similarity": round(1 - distance, 3),
-                "raw_similarity": round(distance, 3),
-                "stats": {},
-            }
-            for key in ALL_STAT_KEYS:
-                player["stats"][key] = float(metadata.get(self.to_snake_case(key), 0.0))
-
+            player = self._process_player_metadata_with_similarity(metadata, distance, document, emb)
             players_with_scores.append(player)
 
         return players_with_scores
 
     def create_vector_space_visualization(self, player_id):
-        collection = self.db_client.get_or_create_collection("nfl_players")
+        collection = self._get_collection()
 
         results = collection.get(
             ids=[player_id], include=["embeddings", "metadatas", "documents"]
@@ -104,7 +117,7 @@ class NFLPlayersController:
             metadatas, distances, documents, embeddings
         ):
             metadata_with_score = metadata.copy()
-            metadata_with_score["similarity"] = round(1 - distance, 3)
+            metadata_with_score["similarity"] = self._calculate_similarity_score(distance)
             metadata_with_score["raw_similarity"] = round(distance, 3)
             metadata_with_score["document"] = document
             metadata_with_score["embedding"] = emb.tolist()

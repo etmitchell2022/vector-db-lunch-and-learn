@@ -1,2 +1,11 @@
 /vector_store/chroma_storage
 .flaskenv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.env
