@@ -9,7 +9,7 @@
  */
 
 
-export interface Movie { 
+export interface MovieSearchResult { 
     id?: number;
     title?: string;
     overview?: string;
@@ -23,4 +23,3 @@ export interface Movie {
     document?: string;
     embedding?: Array<number>;
 }
-

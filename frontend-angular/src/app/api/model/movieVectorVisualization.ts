@@ -7,9 +7,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Coordinates } from './coordinates';
 
 
-export interface Movie { 
+export interface MovieVectorVisualization { 
     id?: number;
     title?: string;
     overview?: string;
@@ -18,9 +19,9 @@ export interface Movie {
     popularity?: number;
     language?: string;
     poster_path?: string;
-    similarity?: number;
-    raw_similarity?: number;
     document?: string;
     embedding?: Array<number>;
+    similarity?: number;
+    raw_similarity?: number;
+    coordinates?: Coordinates;
 }
-

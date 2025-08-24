@@ -2,6 +2,8 @@ export * from './coordinates';
 export * from './modelError';
 export * from './movie';
 export * from './movieSearchArgs';
+export * from './movieSearchResult';
+export * from './movieVectorVisualization';
 export * from './nFLPlayer';
 export * from './nFLPlayerSearchArgs';
 export * from './nFLPlayerSearchResult';

@@ -3,7 +3,12 @@ from flask.views import MethodView
 from flask_smorest import Blueprint
 
 from app.controllers.movies import MovieController
-from app.schemas.movies import MovieSearchArgs, MovieSchema
+from app.schemas.movies import (
+    MovieSearchArgs, 
+    MovieSchema, 
+    MovieSearchResultSchema,
+    MovieVectorVisualizationSchema
+)
 
 movies_blp = Blueprint("Movies", "movies", description="Movie Endpoints")
 
@@ -20,7 +25,7 @@ class MovieResource(MethodView):
 @movies_blp.route("/movies/search")
 class MovieRecommendationResource(MethodView):
     @movies_blp.arguments(MovieSearchArgs, location="json")
-    @movies_blp.response(200, MovieSchema(many=True))
+    @movies_blp.response(200, MovieSearchResultSchema(many=True))
     def post(self, args):
         movie_controller = MovieController()
         search = args.get("search")
@@ -39,7 +44,7 @@ class MovieResource(MethodView):
 
 @movies_blp.route("/movies/movie/<movie_id>/recommendations")
 class MovieRecommendationsResource(MethodView):
-    @movies_blp.response(200, MovieSchema(many=True))
+    @movies_blp.response(200, MovieSearchResultSchema(many=True))
     def get(self, movie_id):
         movie_controller = MovieController()
         movie = movie_controller.get_movie_by_id(movie_id)
@@ -47,3 +52,12 @@ class MovieRecommendationsResource(MethodView):
             movie["overview"], top_n=10
         )
         return recommendations
+
+
+@movies_blp.route("/movies/movie/<movie_id>/vector-visualization")
+class MovieVectorVisualizationResource(MethodView):
+    @movies_blp.response(200, MovieVectorVisualizationSchema(many=True))
+    def get(self, movie_id):
+        movie_controller = MovieController()
+        movies = movie_controller.create_vector_space_visualization(movie_id)
+        return movies
